@@ -1,0 +1,221 @@
+const navbar = document.getElementById("navbar");
+const navLinks = document.querySelectorAll(".nav-link");
+const mobileMenu = document.getElementById("mobile-menu");
+const hamburger = document.getElementById("hamburger");
+const allMenuLinks = document.querySelectorAll('a[href^="#"]');
+const projectCards = document.querySelectorAll(".project-card");
+const form = document.getElementById("contact-form");
+const submitBtn = document.getElementById("submit-btn");
+const animatedElements = document.querySelectorAll('[data-animate="fade-up"]');
+
+function handleNavbarScroll() {
+  navbar.classList.toggle("scrolled", window.scrollY > 80);
+}
+
+handleNavbarScroll();
+window.addEventListener("scroll", handleNavbarScroll, { passive: true });
+
+const sections = document.querySelectorAll("main section[id]");
+const sectionObserver = new IntersectionObserver(
+  (entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+
+      const id = entry.target.getAttribute("id");
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+      });
+    });
+  },
+  {
+    threshold: 0.4,
+    rootMargin: "-20% 0px -40% 0px",
+  },
+);
+
+sections.forEach((section) => sectionObserver.observe(section));
+
+function closeMobileMenu() {
+  mobileMenu.classList.remove("open");
+  hamburger.classList.remove("open");
+  hamburger.setAttribute("aria-expanded", "false");
+}
+
+hamburger.addEventListener("click", () => {
+  const isOpen = mobileMenu.classList.toggle("open");
+  hamburger.classList.toggle("open", isOpen);
+  hamburger.setAttribute("aria-expanded", String(isOpen));
+});
+
+allMenuLinks.forEach((anchor) => {
+  anchor.addEventListener("click", (event) => {
+    const href = anchor.getAttribute("href");
+    if (!href || !href.startsWith("#")) return;
+
+    const target = document.querySelector(href);
+    if (!target) return;
+
+    event.preventDefault();
+    const offset =
+      parseInt(
+        getComputedStyle(document.documentElement)
+          .getPropertyValue("--nav-height-offset")
+          .trim(),
+        10,
+      ) || 80;
+    const targetPosition =
+      target.getBoundingClientRect().top + window.pageYOffset - offset;
+
+    window.scrollTo({ top: targetPosition, behavior: "smooth" });
+    if (window.innerWidth < 768) closeMobileMenu();
+  });
+});
+
+projectCards.forEach((card) => {
+  const closeButton = card.querySelector(".close-detail");
+
+  const toggleCard = () => {
+    const isExpanded = card.classList.contains("expanded");
+    projectCards.forEach((otherCard) => otherCard.classList.remove("expanded"));
+    if (!isExpanded) card.classList.add("expanded");
+  };
+
+  card.addEventListener("click", (event) => {
+    if (event.target.closest(".close-detail")) return;
+    toggleCard();
+  });
+
+  closeButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    card.classList.remove("expanded");
+  });
+});
+
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+function setError(fieldName, message) {
+  const errorEl = document.querySelector(`[data-error-for="${fieldName}"]`);
+  if (!errorEl) return;
+  errorEl.textContent = message;
+  errorEl.classList.toggle("show", Boolean(message));
+}
+
+function validateField(field) {
+  const value = field.value.trim();
+
+  if (!value) {
+    setError(field.name, "Este campo es obligatorio.");
+    return false;
+  }
+
+  if (field.name === "email" && !emailRegex.test(value)) {
+    setError(field.name, "Ingresá un email válido.");
+    return false;
+  }
+
+  if (field.name === "telefono") {
+    const digits = value.replace(/\D/g, "");
+    if (digits.length < 8) {
+      setError(field.name, "El teléfono debe tener al menos 8 dígitos.");
+      return false;
+    }
+  }
+
+  setError(field.name, "");
+  return true;
+}
+
+const allFields = Array.from(form.querySelectorAll(".field-control"));
+
+allFields.forEach((field) => {
+  const parent = field.closest(".field-group");
+
+  const refreshFloatingState = () => {
+    parent.classList.toggle(
+      "has-value",
+      field.value.trim().length > 0 || document.activeElement === field,
+    );
+  };
+
+  field.addEventListener("input", () => {
+    refreshFloatingState();
+    validateField(field);
+  });
+
+  field.addEventListener("focus", refreshFloatingState);
+  field.addEventListener("blur", () => {
+    refreshFloatingState();
+    validateField(field);
+  });
+
+  refreshFloatingState();
+});
+
+function setSubmitState(state) {
+  if (state === "idle") {
+    submitBtn.className = "submit-btn";
+    submitBtn.innerHTML = "Enviar mensaje →";
+    return;
+  }
+
+  if (state === "loading") {
+    submitBtn.className = "submit-btn loading";
+    submitBtn.innerHTML = '<span class="spinner"></span> Enviando...';
+    return;
+  }
+
+  if (state === "success") {
+    submitBtn.className = "submit-btn success";
+    submitBtn.style.background = "#00b884";
+    submitBtn.innerHTML = "✓ ¡Mensaje enviado con éxito!";
+  }
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+
+  const isValid = allFields.every((field) => validateField(field));
+  if (!isValid) return;
+
+  setSubmitState("loading");
+
+  setTimeout(() => {
+    setSubmitState("success");
+    form.reset();
+    allFields.forEach((field) =>
+      field.closest(".field-group").classList.remove("has-value"),
+    );
+
+    setTimeout(() => {
+      submitBtn.style.background = "";
+      setSubmitState("idle");
+    }, 2600);
+  }, 2000);
+});
+
+const animationObserver = new IntersectionObserver(
+  (entries, observer) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const delay = Number(entry.target.dataset.delay || 0);
+
+      setTimeout(() => {
+        entry.target.classList.add("is-visible");
+      }, delay);
+
+      observer.unobserve(entry.target);
+    });
+  },
+  {
+    threshold: 0.18,
+    rootMargin: "0px 0px -8% 0px",
+  },
+);
+
+animatedElements.forEach((element) => animationObserver.observe(element));
+
+document.getElementById("current-year").textContent = new Date().getFullYear();
+
+window.addEventListener("resize", () => {
+  if (window.innerWidth >= 768) closeMobileMenu();
+});
