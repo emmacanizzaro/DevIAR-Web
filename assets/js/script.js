@@ -7,6 +7,7 @@ const projectCards = document.querySelectorAll(".project-card");
 const form = document.getElementById("contact-form");
 const submitBtn = document.getElementById("submit-btn");
 const animatedElements = document.querySelectorAll('[data-animate="fade-up"]');
+const readMoreBlocks = document.querySelectorAll("[data-read-more]");
 
 function handleNavbarScroll() {
   navbar.classList.toggle("scrolled", window.scrollY > 80);
@@ -213,6 +214,17 @@ const animationObserver = new IntersectionObserver(
 );
 
 animatedElements.forEach((element) => animationObserver.observe(element));
+
+readMoreBlocks.forEach((block) => {
+  const toggleBtn = block.querySelector(".read-more-btn");
+  if (!toggleBtn) return;
+
+  toggleBtn.addEventListener("click", () => {
+    const isExpanded = block.classList.toggle("expanded");
+    toggleBtn.textContent = isExpanded ? "Ver menos" : "Seguir leyendo";
+    toggleBtn.setAttribute("aria-expanded", String(isExpanded));
+  });
+});
 
 document.getElementById("current-year").textContent = new Date().getFullYear();
 

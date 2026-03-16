@@ -579,6 +579,48 @@ section {
   font-size: 1.01rem;
 }
 
+.read-more-block {
+  max-width: 760px;
+  margin: 4px 0 18px;
+}
+
+.read-more-btn {
+  border: 1px solid rgba(59, 130, 246, 0.45);
+  background: rgba(59, 130, 246, 0.08);
+  color: #bfdbfe;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-out-expo);
+}
+
+.read-more-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(59, 130, 246, 0.8);
+  background: rgba(59, 130, 246, 0.16);
+  box-shadow: 0 10px 24px rgba(59, 130, 246, 0.18);
+}
+
+.read-more-content {
+  display: none;
+  margin-top: 14px;
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+.read-more-block.expanded .read-more-content {
+  display: block;
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+}
+
 .hero-ctas {
   margin-top: 28px;
   display: flex;
