@@ -190,8 +190,12 @@ form.addEventListener("submit", async (event) => {
       body: formData,
     });
 
-    if (!response.ok) {
-      throw new Error("No se pudo enviar el formulario");
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok || String(result.success).toLowerCase() !== "true") {
+      const reason =
+        result.message || "No se pudo enviar el formulario en este momento.";
+      throw new Error(reason);
     }
 
     setSubmitState("success");
@@ -207,11 +211,12 @@ form.addEventListener("submit", async (event) => {
     setTimeout(() => {
       setSubmitState("idle");
     }, 2600);
-  } catch {
+  } catch (error) {
     setSubmitState("idle");
     setError(
       "proyecto",
-      "No se pudo enviar el mensaje. Probá de nuevo en unos segundos.",
+      error?.message ||
+        "No se pudo enviar el mensaje. Probá de nuevo en unos segundos.",
     );
   }
 });
