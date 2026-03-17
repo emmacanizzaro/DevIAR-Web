@@ -172,7 +172,7 @@ function setSubmitState(state) {
   }
 }
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
   const isValid = allFields.every((field) => validateField(field));
@@ -180,17 +180,40 @@ form.addEventListener("submit", (event) => {
 
   setSubmitState("loading");
 
-  setTimeout(() => {
+  try {
+    const formData = new FormData(form);
+    const response = await fetch(form.action, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("No se pudo enviar el formulario");
+    }
+
     setSubmitState("success");
     form.reset();
     allFields.forEach((field) =>
       field.closest(".field-group").classList.remove("has-value"),
     );
+    setError("nombre", "");
+    setError("email", "");
+    setError("telefono", "");
+    setError("proyecto", "");
 
     setTimeout(() => {
       setSubmitState("idle");
     }, 2600);
-  }, 2000);
+  } catch {
+    setSubmitState("idle");
+    setError(
+      "proyecto",
+      "No se pudo enviar el mensaje. Probá de nuevo en unos segundos.",
+    );
+  }
 });
 
 const animationObserver = new IntersectionObserver(

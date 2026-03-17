@@ -1046,6 +1046,12 @@ textarea.field-control {
 
 .field-control::placeholder {
   color: rgba(136, 136, 170, 0.8);
+  transition: opacity 0.18s ease;
+}
+
+.field-control:focus::placeholder,
+.field-group.has-value .field-control::placeholder {
+  opacity: 0;
 }
 
 .field-control:focus {
