@@ -467,6 +467,10 @@ section {
   text-transform: uppercase;
 }
 
+.mobile-nav-cta {
+  display: inline-flex;
+}
+
 #inicio {
   min-height: 100vh;
   display: flex;
@@ -722,6 +726,11 @@ section {
   opacity: 1;
 }
 
+.profile-image.is-hidden,
+.profile-image-placeholder.is-hidden {
+  display: none;
+}
+
 .profile-image-placeholder {
   aspect-ratio: 3 / 4;
   width: 100%;
@@ -808,6 +817,22 @@ section {
   text-align: center;
   padding: 18px;
   position: relative;
+}
+
+.project-head-web {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.project-head-landing {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+}
+
+.project-head-python {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.project-head-react {
+  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
 }
 
 .project-head svg {
@@ -1110,6 +1135,10 @@ textarea.field-control {
 .submit-btn.loading,
 .submit-btn.success {
   pointer-events: none;
+}
+
+.submit-btn.success {
+  background: #00b884;
 }
 
 .spinner {

@@ -8,6 +8,7 @@ const form = document.getElementById("contact-form");
 const submitBtn = document.getElementById("submit-btn");
 const animatedElements = document.querySelectorAll('[data-animate="fade-up"]');
 const readMoreBlocks = document.querySelectorAll("[data-read-more]");
+const profileImages = document.querySelectorAll(".profile-image");
 
 function handleNavbarScroll() {
   navbar.classList.toggle("scrolled", window.scrollY > 80);
@@ -167,7 +168,6 @@ function setSubmitState(state) {
 
   if (state === "success") {
     submitBtn.className = "submit-btn success";
-    submitBtn.style.background = "#00b884";
     submitBtn.innerHTML = "✓ ¡Mensaje enviado con éxito!";
   }
 }
@@ -188,7 +188,6 @@ form.addEventListener("submit", (event) => {
     );
 
     setTimeout(() => {
-      submitBtn.style.background = "";
       setSubmitState("idle");
     }, 2600);
   }, 2000);
@@ -224,6 +223,24 @@ readMoreBlocks.forEach((block) => {
     toggleBtn.textContent = isExpanded ? "Ver menos" : "Seguir leyendo";
     toggleBtn.setAttribute("aria-expanded", String(isExpanded));
   });
+});
+
+profileImages.forEach((image) => {
+  const placeholder = image.nextElementSibling;
+
+  const revealImage = () => {
+    image.classList.add("is-loaded");
+    placeholder?.classList.add("is-hidden");
+  };
+
+  const hideBrokenImage = () => {
+    image.classList.add("is-hidden");
+  };
+
+  image.addEventListener("load", revealImage);
+  image.addEventListener("error", hideBrokenImage);
+
+  if (image.complete && image.naturalWidth > 0) revealImage();
 });
 
 document.getElementById("current-year").textContent = new Date().getFullYear();

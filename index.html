@@ -8,6 +8,20 @@
       name="description"
       content="Landing page profesional de Emma Canizzaro: desarrollo web, automatización con IA y soluciones digitales de alto rendimiento."
     />
+    <meta name="author" content="Emmanuel Canizzaro" />
+    <meta
+      name="robots"
+      content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1"
+    />
+    <meta name="theme-color" content="#0a0a0f" />
+    <link rel="canonical" href="https://emmacanizzaro.github.io/DevIAR-Web/" />
+
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self' data: https:; font-src 'self' https://fonts.gstatic.com data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests"
+    />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+
     <meta
       property="og:title"
       content="Emma Canizzaro · Desarrollo Web + Automatización IA"
@@ -20,8 +34,27 @@
       property="og:image"
       content="https://via.placeholder.com/1200x630.png?text=Emma+Canizzaro+Landing+Page"
     />
+    <meta
+      property="og:url"
+      content="https://emmacanizzaro.github.io/DevIAR-Web/"
+    />
+    <meta property="og:site_name" content="DeV·IAR Web" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="es_AR" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Emma Canizzaro · Desarrollo Web + Automatización IA"
+    />
+    <meta
+      name="twitter:description"
+      content="Sitios web, landing pages y automatizaciones con IA para potenciar tu negocio."
+    />
+    <meta
+      name="twitter:image"
+      content="https://via.placeholder.com/1200x630.png?text=Emma+Canizzaro+Landing+Page"
+    />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,6 +63,24 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="assets/css/styles.css" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "DeV·IAR Web",
+        "url": "https://emmacanizzaro.github.io/DevIAR-Web/",
+        "image": "https://via.placeholder.com/1200x630.png?text=Emma+Canizzaro+Landing+Page",
+        "description": "Desarrollo web, landing pages y automatización con IA para empresas y emprendedores.",
+        "areaServed": "AR",
+        "inLanguage": "es",
+        "sameAs": [
+          "https://www.linkedin.com/in/emmanuel-canizzaro-848283104/",
+          "https://github.com/emmacanizzaro",
+          "https://www.instagram.com/emmacanizzaro/"
+        ]
+      }
+    </script>
 
     <!-- Nav -->
   </head>
@@ -76,9 +127,7 @@
           <a href="#quien-soy">Quién soy</a>
           <a href="#proyectos">Proyectos</a>
           <a href="#contacto">Contacto</a>
-          <a href="#contacto" class="nav-cta" style="display: inline-flex"
-            >Contratar</a
-          >
+          <a href="#contacto" class="nav-cta mobile-nav-cta">Contratar</a>
         </div>
       </div>
     </nav>
@@ -234,14 +283,9 @@
             <div class="profile-image-wrap">
               <img
                 src="assets/img/tu-foto.JPG"
-                alt="Tu nombre"
+                alt="Foto de perfil de Emmanuel Canizzaro"
                 class="profile-image"
                 loading="lazy"
-                onload="
-                  this.classList.add('is-loaded');
-                  this.nextElementSibling.style.display = 'none';
-                "
-                onerror="this.style.display = 'none'"
               />
               <div
                 class="profile-image-placeholder"
@@ -280,12 +324,7 @@
               data-animate="fade-up"
               data-delay="40"
             >
-              <div
-                class="project-head"
-                style="
-                  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-                "
-              >
+              <div class="project-head project-head-web">
                 <div>
                   <svg
                     viewBox="0 0 24 24"
@@ -335,12 +374,7 @@
               data-animate="fade-up"
               data-delay="80"
             >
-              <div
-                class="project-head"
-                style="
-                  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-                "
-              >
+              <div class="project-head project-head-landing">
                 <div>
                   <svg
                     viewBox="0 0 24 24"
@@ -389,12 +423,7 @@
               data-animate="fade-up"
               data-delay="120"
             >
-              <div
-                class="project-head"
-                style="
-                  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-                "
-              >
+              <div class="project-head project-head-python">
                 <div>
                   <svg
                     viewBox="0 0 24 24"
@@ -442,12 +471,7 @@
               data-animate="fade-up"
               data-delay="160"
             >
-              <div
-                class="project-head"
-                style="
-                  background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-                "
-              >
+              <div class="project-head project-head-react">
                 <div>
                   <svg
                     viewBox="0 0 24 24"
@@ -580,7 +604,7 @@
                 class="social-btn"
                 href="https://www.linkedin.com/in/emmanuel-canizzaro-848283104/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -593,7 +617,7 @@
                 class="social-btn"
                 href="https://github.com/emmacanizzaro"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="GitHub"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -606,7 +630,7 @@
                 class="social-btn"
                 href="https://www.instagram.com/emmacanizzaro/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
               >
                 <svg
@@ -729,7 +753,7 @@
                 class="social-btn"
                 href="https://www.linkedin.com/in/emmanuel-canizzaro-848283104/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -742,7 +766,7 @@
                 class="social-btn"
                 href="https://github.com/emmacanizzaro"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="GitHub"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -755,7 +779,7 @@
                 class="social-btn"
                 href="https://www.instagram.com/emmacanizzaro/"
                 target="_blank"
-                rel="noopener"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
               >
                 <svg
@@ -783,6 +807,6 @@
       </div>
     </footer>
 
-    <script src="assets/js/script.js"></script>
+    <script src="assets/js/script.js" defer></script>
   </body>
 </html>
